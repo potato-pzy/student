@@ -2,10 +2,8 @@ Flask
 mysql-connector-python
 psycopg2
 SQLAlchemy
-werkzeug
-streamlit
-subprocess-run
- 
-email
-hashlib
-os-sys
+matplotlib
+pytesseract
+gTTS
+googletrans==4.0.0-rc1  # Stable RC version
+Pillow
