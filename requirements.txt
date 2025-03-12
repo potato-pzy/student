@@ -1,0 +1,11 @@
+Flask
+mysql-connector-python
+psycopg2
+SQLAlchemy
+werkzeug
+streamlit
+subprocess-run
+smtplib
+email
+hashlib
+os-sys
