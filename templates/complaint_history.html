@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint History</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+         body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .table {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .table th {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        .btn-view {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .btn-view:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .table th, .table td {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .table th, .table td {
+                font-size: 12px;
+            }
+
+            .btn-view {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .table th, .table td {
+                font-size: 11px;
+                padding: 8px;
+            }
+
+            .btn-view {
+                font-size: 10px;
+                padding: 3px 7px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Complaint History</h2>
+        {% if complaints %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Faculty</th>
+                        <th>Details</th>
+                        <th>Evidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint[0] }}</td> <!-- ID -->
+                        <td>{{ complaint[1] or 'Anonymous' }}</td> <!-- Username -->
+                        <td>{{ complaint[2] }}</td> <!-- Complaint Type -->
+                        <td>{{ complaint[3] }}</td> <!-- Category -->
+                        <td>{{ complaint[4] or 'N/A' }}</td> <!-- Faculty Name -->
+                        <td>{{ complaint[5] }}</td> <!-- Complaint Details -->
+                        <td>
+                            {% if complaint[6] %}
+                                <a href="{{ url_for('static', filename='uploads/' ~ complaint[6]) }}" target="_blank" class="btn-view">View</a>
+                            {% else %}
+                                No Evidence
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-center">No complaints found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

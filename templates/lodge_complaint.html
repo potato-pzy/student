@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lodge a Complaint</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <style>
+      /* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 20px;
+}
+
+.container {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Form elements */
+.form-control, .form-select, .btn, textarea {
+    border-radius: 6px;
+    font-size: 1rem;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+textarea {
+    resize: none;
+}
+
+/* Submit Button */
+.btn-primary, .view-btn {
+    background-color: #007bff;
+    border: none;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 1rem;
+    padding: 12px;
+}
+
+.btn-primary:hover, .view-btn:hover {
+    background-color: #0056b3;
+}
+
+/* View Complaints Button */
+.view-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px;
+    margin-top: 20px;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+/* Polling Section */
+.polling-section {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 768px) {
+    /* For Tablets and Below */
+    .container {
+        padding: 20px;
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .btn-primary, .view-btn, .btn-info {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* For Mobile Devices */
+    .container {
+        padding: 15px;
+        max-width: 95%;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .btn-primary, .view-btn, .btn-info {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    .form-control, .form-select, textarea {
+        font-size: 0.875rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form action="/lodge_complaint" method="POST" enctype="multipart/form-data">
+        <h1>Lodge a Complaint</h1>
+
+        <label for="location">Complaint Type</label>
+        <select id="location" name="comment" class="form-select" required>
+            <option value="Academic">Academic</option>
+            <option value="Non-Academic">Non-Academic</option>
+            <option value="Personal">Personal</option>
+        </select>
+
+        
+
+        <label for="soil">Category</label>
+        <select id="soil" name="comment1" class="form-select" required>
+            <option value="Faculty">Faculty</option>
+            <option value="Admins">Admins</option>
+        </select>
+
+        <label for="faculty">Faculty Name</label>
+        <select id="faculty" name="comment2" class="form-select" required>
+            <option value="Ayishath Safwana">Ayishath Safwana</option>
+            <option value="Manjula">Manjula</option>
+            <option value="Sindhu">Sindhu</option>
+            <option value="Sindhu">admin</option>
+        </select>
+      
+
+        <label for="complaint-details">Complaint Details:</label>
+        <textarea id="complaint-details" name="complaint_details" rows="4" class="form-control" placeholder="Describe your complaint" required></textarea>
+
+        <label for="evidence">Evidence (optional):</label>
+        <input type="file" id="evidence" name="evidence" class="form-control" accept="audio/*, video/*, image/*">
+          
+       
+
+        <button type="submit" class="btn btn-primary mt-3 w-100">Submit</button>
+
+        <a href="/view_complaints" class="btn view-btn">View Complaints</a>
+
+    </form>
+    <form action="/open_streamlit" method="POST">
+        <button type="submit" class="btn btn-info mt-3 w-100">Run Streamlit</button>
+    </form>
+</div>
+
+<script>
+    // Show the polling section based on the selected complaint type
+    document.getElementById("location").addEventListener("change", function() {
+        var selectedValue = this.value;
+        var pollingSection = document.getElementById("polling");
+
+        if (selectedValue === "Academic" || selectedValue === "Non-Academic") {
+            pollingSection.style.display = "block";
+        } else {
+            pollingSection.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>

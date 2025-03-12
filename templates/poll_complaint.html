@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Poll</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+    
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Arial', sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin-top: 50px;
+    }
+    .panel {
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .panel-heading {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #333;
+    }
+    .panel-body {
+        font-size: 1rem;
+        color: #555;
+    }
+    .panel-footer {
+        font-size: 0.9rem;
+        text-align: right;
+        color: #888;
+    }
+    .btn-submit {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+    }
+    .btn-submit:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+    .radio-group {
+        margin-bottom: 15px;
+    }
+    .complaint-details {
+        font-size: 1rem;
+        color: #333;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        .container {
+            margin-top: 20px;
+            padding: 15px;
+        }
+        .panel {
+            padding: 15px;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .panel-body {
+            font-size: 0.9rem;
+        }
+        .panel-heading {
+            font-size: 1.1rem;
+        }
+        .btn-submit {
+            font-size: 1rem;
+            padding: 14px;
+        }
+    }
+</style>
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center mb-4">Poll for <strong>{{ complaint_type }}</strong> Complaints</h2>
+
+    {% if complaints %}
+        <form action="/submit_poll" method="POST">
+            {% for complaint in complaints %}
+                <div class="panel">
+                    <div class="panel-heading">
+                        <strong>Complaint Details:</strong>
+                    </div>
+                    <div class="panel-body">
+                        <p class="complaint-details">{{ complaint.details }}</p>
+                        <p><strong>Total Votes:</strong> {{ complaint.total_votes }} | <strong>Support Percentage:</strong> {{ complaint.support_percentage }}%</p>
+
+                        <div class="radio-group">
+                            <label><input type="radio" name="support_{{ complaint.id }}" value="support"> Support</label>
+                        </div>
+                        <div class="radio-group">
+                            <label><input type="radio" name="support_{{ complaint.id }}" value="not_support"> Do not support</label>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <small>Vote now to express your opinion</small>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-submit btn-lg">
+                    <i class="fas fa-check-circle"></i> Submit Vote
+                </button>
+            </div>
+        </form>
+    {% else %}
+        <div class="alert alert-warning text-center" role="alert">
+            <i class="fas fa-exclamation-circle"></i> No complaints to vote for at the moment.
+        </div>
+    {% endif %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
