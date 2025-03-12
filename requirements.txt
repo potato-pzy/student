@@ -7,3 +7,4 @@ pytesseract
 gTTS
 googletrans==4.0.0-rc1  # Stable RC version
 Pillow
+streamlit==1.43.1
